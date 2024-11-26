@@ -1,0 +1,146 @@
+<html lang='es'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Estado de Variables</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .variable {
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .variable h2 {
+            margin-top: 0;
+        }
+
+        .on {
+            color: green;
+        }
+
+        .off {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function requestDataFromESP32() {
+            fetch('/info_values')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('I1', data.I1);
+                    const estado_I1 = document.getElementById('I1_value');
+                    estado_I1.textContent = (data.I1 === 0) ? 'ON' : 'OFF';
+                    estado_I1.className = (data.I1 === 0) ? 'on' : 'off';
+
+                    const estado_I2 = document.getElementById('I2_value');
+                    estado_I2.textContent = (data.I2 === 0) ? 'ON' : 'OFF';
+                    estado_I2.className = (data.I2 === 0) ? 'on' : 'off';
+
+                    const estado_I3 = document.getElementById('I3_value');
+                    estado_I3.textContent = (data.I3 === 0) ? 'ON' : 'OFF';
+                    estado_I3.className = (data.I3 === 0) ? 'on' : 'off';
+
+                    const estado_I4 = document.getElementById('I4_value');
+                    estado_I4.textContent = (data.I4 === 0) ? 'ON' : 'OFF';
+                    estado_I4.className = (data.I4 === 0) ? 'on' : 'off';
+
+                    const estado_I5 = document.getElementById('I5_value');
+                    estado_I5.textContent = data.I5;
+
+                    const estado_I6 = document.getElementById('I6_value');
+                    estado_I6.textContent = data.I6;
+
+                    const estado_O1 = document.getElementById('O1_value');
+                    estado_O1.textContent = (data.O1 === 1) ? 'ON' : 'OFF';
+                    estado_O1.className = (data.O1 === 1) ? 'on' : 'off';
+
+                    const estado_O2 = document.getElementById('O2_value');
+                    estado_O2.textContent = (data.O2 === 1) ? 'ON' : 'OFF';
+                    estado_O2.className = (data.O2 === 1) ? 'on' : 'off';
+
+                    const estado_O3 = document.getElementById('O3_value');
+                    estado_O3.textContent = (data.O3 === 1) ? 'ON' : 'OFF';
+                    estado_O3.className = (data.O3 === 1) ? 'on' : 'off';
+
+                    const estado_O4 = document.getElementById('O4_value');
+                    estado_O4.textContent = (data.O4 === 1) ? 'ON' : 'OFF';
+                    estado_O4.className = (data.O4 === 1) ? 'on' : 'off';
+                })
+                .catch(error => console.error('Error al obtener datos del sensor:', error));
+        }
+
+        setInterval(requestDataFromESP32, 100); // 500 ms = 0.5 segundos
+    </script>
+
+    <div class='container'>
+        <div class='variable'>
+            <h2>IN1</h2>
+            <p>Estado: <span id='I1_value' class='off'>cargando...</span></p>
+        </div>
+        <div class='variable'>
+            <h2>IN2</h2>
+            <p>Estado: <span id='I2_value' class='off'>cargando...</span></p>
+        </div>
+        <div class='variable'>
+            <h2>IN3</h2>
+            <p>Estado: <span id='I3_value' class='off'>cargando...</span></p>
+        </div>
+        <div class='variable'>
+            <h2>IN4</h2>
+            <p>Estado: <span id='I4_value' class='off'>cargando...</span></p>
+        </div>
+    </div>
+
+    <div class='container'>
+        <div class='variable'>
+            <h2>A1</h2>
+            <p>Valor: <span id='I5_value'>cargando..-</span></p>
+        </div>
+        <div class='variable'>
+            <h2>A2</h2>
+            <p>Valor: <span id='I6_value'>cargando...</span></p>
+        </div>
+    </div>
+
+    <div class='container'>
+        <div class='variable'>
+            <h2>O1</h2>
+            <p>Estado: <span id='O1_value' class='off'>cargando...</span></p>
+        </div>
+        <div class='variable'>
+            <h2>O2</h2>
+            <p>Estado: <span id='O2_value' class='off'>cargando...</span></p>
+        </div>
+        <div class='variable'>
+            <h2>O3</h2>
+            <p>Estado: <span id='O3_value' class='off'>cargando...</span></p>
+        </div>
+        <div class='variable'>
+            <h2>O4</h2>
+            <p>Estado: <span id='O4_value' class='off'>cargando...</span></p>
+        </div>
+    </div>
+
+</body>
+</html>
